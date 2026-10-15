@@ -27,20 +27,15 @@ class UniformCostSearch:
         frontier.add(root)
   
         while True:
-
-            if frontier.is_empty():
-                print(f"frontera vacia")
+            if frontier.is_empty():    
                 return NoSolution(reached)
             
             node = frontier.pop()
-            print(f"verificando estado {node.state}, costo: {node.cost}")
-
+            
             if grid.objective_test(node.state):
-                print(f"llegada al objetivo")
                 return Solution(node, reached)
 
             for a in grid.actions(node.state):
-                print(f"Acciones disponibles: {a}")
                 new_state = grid.result(node.state, a)
                 new_cost = node.cost + grid.individual_cost(node.state, a)
                 
@@ -48,4 +43,4 @@ class UniformCostSearch:
                     new_node = Node("",new_state, new_cost, node, a )
                     reached[new_state] = new_cost
                     frontier.add(new_node)
-                    print(f"Agregado a la frontera: {new_node}")
+
