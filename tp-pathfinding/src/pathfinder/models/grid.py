@@ -109,5 +109,9 @@ class Grid:
         new_pos = self.result(pos, action)
         return self.grid[new_pos[0]][new_pos[1]].cost
 
+    def h(self, n: Node) -> int:
+        manhattan = abs(n.state[0]-self.end[0]) + abs(n.state[1]-self.end[1])
+        return manhattan
+    
     def __repr__(self) -> str:
         return f"Grid([[...], ...], {self.initial}, {self.end})"

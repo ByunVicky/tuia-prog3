@@ -23,7 +23,24 @@ class UniformCostSearch:
         reached[root.state] = root.cost
 
         # Initialize frontier with the root node
-        # TODO Complete the rest!!
-        # ...
+        frontier = PriorityQueueFrontier()
+        frontier.add(root)
+  
+        while True:
+            if frontier.is_empty():    
+                return NoSolution(reached)
+            
+            node = frontier.pop()
+            
+            if grid.objective_test(node.state):
+                return Solution(node, reached)
 
-        return NoSolution(reached)
+            for a in grid.actions(node.state):
+                new_state = grid.result(node.state, a)
+                new_cost = node.cost + grid.individual_cost(node.state, a)
+                
+                if new_state not in reached or new_cost < reached[new_state]:
+                    new_node = Node("",new_state, new_cost, node, a )
+                    reached[new_state] = new_cost
+                    frontier.add(new_node)
+
